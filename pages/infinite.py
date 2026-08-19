@@ -1,5 +1,4 @@
 import streamlit as st
-import subprocess
 from pathlib import Path
 import random
 
