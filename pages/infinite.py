@@ -2,7 +2,7 @@ import streamlit as st
 from pathlib import Path
 import random
 
-MUSIC_DIR = Path(__file__).resolve().parent.parent / "musicas"
+MUSIC_DIR = Path(__file__).resolve().parent.parent / "musicas" / "Sabrina"
 
 musicas = list(MUSIC_DIR.glob("*.opus"))
 nome_musicas = [i.stem for i in musicas]
@@ -10,16 +10,16 @@ nome_musicas = [i.stem for i in musicas]
 def musica_atual(musicas: list[Path], idx: int):
     return musicas[idx % len(musicas)]
 
-if "musicas" not in st.session_state:
-    st.session_state.musicas = musicas.copy()
-    random.shuffle(st.session_state.musicas)
+if "inf_musicas" not in st.session_state:
+    st.session_state.inf_musicas = musicas.copy()
+    random.shuffle(st.session_state.inf_musicas)
     st.session_state.musica_idx = 0
     st.session_state.resultado = None
 
 st.header("Quiz Infinito")
 
 musica = musica_atual(
-    st.session_state.musicas,
+    st.session_state.inf_musicas,
     st.session_state.musica_idx
 )
 

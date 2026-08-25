@@ -5,8 +5,8 @@ import random
 import pandas as pd
 
 
-MUSIC_DIR = Path(__file__).resolve().parent / "musicas" / "Sabrina"
-musicas = list(MUSIC_DIR.glob("*.opus"))
+MUSIC_DIR = Path(__file__).resolve().parent.parent / "musicas" / "Matuê"
+musicas = list(MUSIC_DIR.glob("*.mp3"))
 nome_musicas = [i.stem for i in musicas]
 
 def musica_cortada(musica: Path, tempo: float):
@@ -25,15 +25,13 @@ def musica_cortada(musica: Path, tempo: float):
 
 def musica_atual(musicas: list[Path], idx: int):
     if idx >= len(musicas):
-        random.shuffle(st.session_state.app_musicas)
-        return musicas[0]
-    return musicas[idx]
+        random.shuffle(st.session_state.mt_musicas)
+    return musicas[idx % len(musicas)]
 
 
 def divisao(a, b):
     if b == 0:
         return 0
-
     return a / b
 
 
@@ -49,10 +47,10 @@ DIFICULDADES = {
 # INICIALIZAÇÃO
 # =========================
 
-if "app_musicas" not in st.session_state:
+if "mt_musicas" not in st.session_state:
 
-    st.session_state.app_musicas = musicas.copy()
-    random.shuffle(st.session_state.app_musicas)
+    st.session_state.mt_musicas = musicas.copy()
+    random.shuffle(st.session_state.mt_musicas)
 
     st.session_state.musica_idx = 0
 
@@ -80,7 +78,7 @@ with abas[0]:
     st.header(f"Quiz ({st.session_state.musica_idx}/{len(musicas)})")
 
     musica = musica_atual(
-        st.session_state.app_musicas,
+        st.session_state.mt_musicas,
         st.session_state.musica_idx
     )
 

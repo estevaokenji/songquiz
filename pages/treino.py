@@ -3,7 +3,7 @@ import subprocess
 from pathlib import Path
 import random
 
-MUSIC_DIR = Path(__file__).resolve().parent.parent / "musicas"
+MUSIC_DIR = Path(__file__).resolve().parent.parent / "musicas" / "Sabrina"
 
 musicas = list(MUSIC_DIR.glob("*.opus"))
 
